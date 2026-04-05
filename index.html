@@ -1,0 +1,1652 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Topology of Money — A History of Monetary Transitions</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #0c0b0a;
+                --bg2: #131210;
+                --bg3: #1b1916;
+                --border: rgba(180, 148, 72, 0.13);
+                --gold: #c8a44a;
+                --gold-dim: #896d2e;
+                --silver: #a6b6c6;
+                --silver-dim: #6a7888;
+                --paper: #c8a474;
+                --text: #dfd8c8;
+                --text-dim: #887f70;
+                --text-muted: #504840;
+
+                --proto-c: #3a4a3e;
+                --proto-t: #88c890;
+                --commodity-c: #6a4a10;
+                --commodity-t: #e8c060;
+                --coin-c: #7a5418;
+                --coin-t: #f0d070;
+                --credit-c: #1e4848;
+                --credit-t: #68c0c8;
+                --bimetal-c: #4a2860;
+                --bimetal-t: #c088e0;
+                --reform-c: #4a1e1e;
+                --reform-t: #e08080;
+                --paper-c: #2e3e1e;
+                --paper-t: #a0c870;
+                --fiat-c: #142848;
+                --fiat-t: #78a8e0;
+                --digital-c: #0e3838;
+                --digital-t: #68ccc0;
+
+                --stripe-proto: #3e7a48;
+                --stripe-commodity: #b07020;
+                --stripe-coin: #c09020;
+                --stripe-credit: #288888;
+                --stripe-bimetal: #8050aa;
+                --stripe-reform: #aa3838;
+                --stripe-paper: #507830;
+                --stripe-fiat: #2858aa;
+                --stripe-digital: #28aa98;
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: "EB Garamond", Georgia, serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.65;
+                font-size: 16px;
+                min-height: 100vh;
+            }
+
+            /* ── HEADER ─────────────────────────────────────────────────────── */
+            .site-header {
+                background: var(--bg2);
+                border-bottom: 1px solid var(--border);
+                padding: 3.5rem 2rem 2.5rem;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+            .site-header h1 {
+                font-family: "Cormorant Garant", serif;
+                font-size: clamp(2rem, 5vw, 3.8rem);
+                font-weight: 300;
+                color: var(--gold);
+                letter-spacing: 0.025em;
+                line-height: 1.05;
+            }
+            .site-header .subtitle {
+                font-style: italic;
+                color: var(--text-dim);
+                margin-top: 0.6rem;
+                font-size: 1.05rem;
+            }
+            .header-divider {
+                width: 60px;
+                height: 1px;
+                background: var(--gold-dim);
+                margin: 1.5rem 0;
+                opacity: 0.5;
+            }
+
+            /* ── THEORY FRAME ───────────────────────────────────────────────── */
+            .theory-frame {
+                max-width: 1100px;
+                margin: 2rem auto;
+                padding: 0 2rem;
+            }
+            .theory-box {
+                background: var(--bg3);
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--gold-dim);
+                padding: 1.75rem 2rem;
+            }
+            .theory-box h2 {
+                font-family: "Cormorant Garant", serif;
+                font-size: 1.25rem;
+                color: var(--gold);
+                margin-bottom: 0.9rem;
+                font-weight: 400;
+                letter-spacing: 0.02em;
+            }
+            .theory-box p {
+                font-size: 0.94rem;
+                color: var(--text-dim);
+                line-height: 1.75;
+                margin-bottom: 0.75rem;
+            }
+            .theory-box p:last-child {
+                margin-bottom: 0;
+            }
+            .theory-box em {
+                color: var(--paper);
+                font-style: italic;
+            }
+            .theory-box strong {
+                color: var(--text);
+                font-weight: 500;
+            }
+
+            /* ── FILTERS ────────────────────────────────────────────────────── */
+            .filters {
+                max-width: 1100px;
+                margin: 1.5rem auto;
+                padding: 0 2rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.45rem;
+                align-items: center;
+            }
+            .filter-label {
+                color: var(--text-muted);
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                margin-right: 0.4rem;
+            }
+            .filter-btn {
+                background: transparent;
+                border: 1px solid var(--border);
+                color: var(--text-dim);
+                padding: 0.28rem 0.7rem;
+                cursor: pointer;
+                font-family: "EB Garamond", serif;
+                font-size: 0.82rem;
+                transition: all 0.18s;
+                border-radius: 1px;
+                outline: none;
+            }
+            .filter-btn:hover {
+                border-color: rgba(200, 164, 74, 0.4);
+                color: var(--paper);
+            }
+            .filter-btn.active {
+                border-color: var(--gold);
+                color: var(--gold);
+                background: rgba(200, 164, 74, 0.06);
+            }
+
+            /* ── TIMELINE ───────────────────────────────────────────────────── */
+            .timeline {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 2rem 5rem;
+            }
+
+            .era-group {
+                margin-bottom: 2.5rem;
+            }
+
+            .era-label {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+                padding-top: 2.5rem;
+                margin-bottom: 1.4rem;
+            }
+            .era-label-text {
+                font-family: "Cormorant Garant", serif;
+                font-size: 1.7rem;
+                font-weight: 300;
+                color: var(--gold);
+                white-space: nowrap;
+                letter-spacing: 0.01em;
+            }
+            .era-label-line {
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
+            .era-label-period {
+                color: var(--text-muted);
+                font-size: 0.72rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+
+            /* ── CARDS ──────────────────────────────────────────────────────── */
+            .card {
+                background: var(--bg2);
+                border: 1px solid var(--border);
+                border-left: none;
+                margin-bottom: 0.75rem;
+                position: relative;
+                overflow: hidden;
+                transition: border-color 0.2s;
+            }
+            .card:hover {
+                border-color: rgba(200, 164, 74, 0.26);
+            }
+
+            .card-stripe {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                flex-shrink: 0;
+            }
+
+            .card-header {
+                padding: 1.15rem 1.4rem 1.15rem 1.8rem;
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: 130px 1fr auto;
+                gap: 1.1rem;
+                align-items: start;
+                user-select: none;
+            }
+
+            .card-meta {
+                flex-shrink: 0;
+                padding-top: 0.1rem;
+            }
+            .card-period {
+                font-size: 0.7rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.09em;
+                margin-bottom: 0.25rem;
+                line-height: 1.4;
+            }
+            .card-region {
+                font-size: 0.78rem;
+                color: var(--silver-dim);
+                font-style: italic;
+            }
+
+            .card-title {
+                font-family: "Cormorant Garant", serif;
+                font-size: 1.28rem;
+                font-weight: 600;
+                color: var(--text);
+                margin-bottom: 0.4rem;
+                line-height: 1.15;
+            }
+            .card-transition {
+                display: flex;
+                align-items: center;
+                gap: 0.45rem;
+                font-size: 0.82rem;
+                color: var(--text-dim);
+                flex-wrap: wrap;
+            }
+            .card-from {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                padding: 0.12rem 0.45rem;
+                border-radius: 1px;
+                line-height: 1.4;
+            }
+            .card-arrow {
+                color: var(--gold-dim);
+                font-size: 1rem;
+            }
+            .card-to {
+                background: rgba(200, 164, 74, 0.06);
+                border: 1px solid rgba(200, 164, 74, 0.14);
+                padding: 0.12rem 0.45rem;
+                border-radius: 1px;
+                color: var(--paper);
+                line-height: 1.4;
+            }
+
+            .card-controls {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.45rem;
+                flex-shrink: 0;
+            }
+            .card-type-badge {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                padding: 0.18rem 0.48rem;
+                border-radius: 1px;
+                white-space: nowrap;
+                font-family: "EB Garamond", serif;
+            }
+            .card-toggle {
+                width: 1.4rem;
+                height: 1.4rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-muted);
+                font-size: 1.4rem;
+                line-height: 1;
+                transition:
+                    transform 0.3s ease,
+                    color 0.2s;
+                font-family: serif;
+            }
+            .card.expanded .card-toggle {
+                transform: rotate(45deg);
+                color: var(--gold-dim);
+            }
+
+            /* Collapsible body */
+            .card-body {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.45s ease;
+            }
+            .card.expanded .card-body {
+                max-height: 2400px;
+            }
+
+            .card-body-inner {
+                padding: 0 1.4rem 1.6rem 1.8rem;
+                border-top: 1px solid var(--border);
+                padding-top: 1.25rem;
+            }
+            .card-summary {
+                font-size: 0.93rem;
+                color: var(--text-dim);
+                line-height: 1.78;
+                margin-bottom: 1rem;
+            }
+            .card-mechanism {
+                font-size: 0.88rem;
+                color: var(--text-dim);
+                line-height: 1.75;
+                margin-bottom: 1rem;
+                padding-left: 1rem;
+                border-left: 2px solid var(--border);
+                font-style: italic;
+            }
+            .austrian-box {
+                background: rgba(200, 164, 74, 0.04);
+                border: 1px solid rgba(200, 164, 74, 0.1);
+                border-left: 2px solid var(--gold-dim);
+                padding: 0.9rem 1.1rem;
+                margin-top: 1rem;
+            }
+            .austrian-label {
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: var(--gold-dim);
+                margin-bottom: 0.5rem;
+            }
+            .austrian-box p {
+                font-size: 0.88rem;
+                color: var(--text-dim);
+                line-height: 1.75;
+            }
+            .card-drivers {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.38rem;
+                margin-top: 1rem;
+            }
+            .driver-tag {
+                font-size: 0.7rem;
+                padding: 0.14rem 0.46rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                color: var(--text-muted);
+                border-radius: 1px;
+                font-style: italic;
+            }
+
+            /* Type badge colors */
+            .b-proto {
+                background: var(--proto-c);
+                color: var(--proto-t);
+            }
+            .b-commodity {
+                background: var(--commodity-c);
+                color: var(--commodity-t);
+            }
+            .b-coin {
+                background: var(--coin-c);
+                color: var(--coin-t);
+            }
+            .b-credit {
+                background: var(--credit-c);
+                color: var(--credit-t);
+            }
+            .b-bimetal {
+                background: var(--bimetal-c);
+                color: var(--bimetal-t);
+            }
+            .b-reform {
+                background: var(--reform-c);
+                color: var(--reform-t);
+            }
+            .b-paper {
+                background: var(--paper-c);
+                color: var(--paper-t);
+            }
+            .b-fiat {
+                background: var(--fiat-c);
+                color: var(--fiat-t);
+            }
+            .b-digital {
+                background: var(--digital-c);
+                color: var(--digital-t);
+            }
+
+            /* Stripe colors */
+            .s-proto {
+                background: var(--stripe-proto);
+            }
+            .s-commodity {
+                background: var(--stripe-commodity);
+            }
+            .s-coin {
+                background: var(--stripe-coin);
+            }
+            .s-credit {
+                background: var(--stripe-credit);
+            }
+            .s-bimetal {
+                background: var(--stripe-bimetal);
+            }
+            .s-reform {
+                background: var(--stripe-reform);
+            }
+            .s-paper {
+                background: var(--stripe-paper);
+            }
+            .s-fiat {
+                background: var(--stripe-fiat);
+            }
+            .s-digital {
+                background: var(--stripe-digital);
+            }
+
+            /* Hidden */
+            .card[data-hidden="true"] {
+                display: none;
+            }
+            .era-group[data-hidden="true"] {
+                display: none;
+            }
+
+            /* ── FOOTER ─────────────────────────────────────────────────────── */
+            .site-footer {
+                border-top: 1px solid var(--border);
+                padding: 2rem;
+                text-align: center;
+                color: var(--text-muted);
+                font-size: 0.8rem;
+                font-style: italic;
+                max-width: 1100px;
+                margin: 0 auto;
+                line-height: 1.7;
+            }
+
+            /* ── RESPONSIVE ─────────────────────────────────────────────────── */
+            @media (max-width: 700px) {
+                .card-header {
+                    grid-template-columns: 90px 1fr auto;
+                    gap: 0.6rem;
+                }
+                .site-header h1 {
+                    font-size: 2rem;
+                }
+                .theory-box {
+                    padding: 1.2rem 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="site-header">
+            <h1>The Topology of Money</h1>
+            <p class="subtitle">
+                A History of Monetary Transitions through the Lens of Contextual
+                Saleability
+            </p>
+            <div class="header-divider"></div>
+        </div>
+
+        <div class="theory-frame">
+            <div class="theory-box">
+                <h2>The Probability Matrix of Exchange</h2>
+                <p>
+                    Standard economic analysis treats the price matrix as
+                    two-dimensional: a grid of goods with bilateral exchange
+                    ratios. Money is the good that appears in every row and
+                    column — the universal intermediary. But this framing
+                    flattens a richer structure. Exchange never occurs in an
+                    abstract space; it occurs in <em>contexts</em>: local or
+                    long-distance, large or small denomination, inter-cultural
+                    or intra-cultural, trusted counterparty or stranger, liquid
+                    or illiquid market, immediate or deferred settlement.
+                </p>
+                <p>
+                    The price matrix is not two-dimensional but
+                    <strong>n-dimensional</strong>, with each additional layer
+                    representing a distinct exchange context. Every good has a
+                    <em>saleability</em> (Menger's <em>Absatzfähigkeit</em>)
+                    that varies across these layers.
+                    <strong
+                        >Money is the good that achieves the highest probability
+                        density across the greatest number of context-layers
+                        simultaneously</strong
+                    >
+                    — it is the modal good in the global distribution of
+                    exchange events. It is not the most useful good, nor the
+                    most intrinsically valuable; it is the most universally
+                    accepted as the counterpart in exchange.
+                </p>
+                <p>
+                    This framing yields three structural insights: (1)
+                    <strong>Parallel monetary systems are natural</strong> —
+                    when different goods dominate distinct context-layers, both
+                    can be "money" in their respective domains. (2)
+                    <strong>Monetary transitions are topological shifts</strong>
+                    — one good's probability density expands into contexts
+                    previously dominated by another, driven by changes in trade
+                    networks, technology, institutions, or supply. (3)
+                    <strong
+                        >Institutional trust reshapes the probability
+                        surface</strong
+                    >
+                    — state certification, legal tender laws, network effects,
+                    and reputational enforcement can concentrate or diffuse
+                    monetary density without changing any good's intrinsic
+                    properties. Every transition documented here represents such
+                    a shift: sometimes gradual convergence, sometimes violent
+                    collapse, always driven by changes in the structure of
+                    exchange itself.
+                </p>
+                <p
+                    style="
+                        font-size: 0.82rem;
+                        color: var(--text-muted);
+                        margin-top: 0.5rem;
+                    "
+                >
+                    Click any entry to expand full analysis. Use filters to
+                    browse by transition type.
+                </p>
+            </div>
+        </div>
+
+        <div class="filters">
+            <span class="filter-label">View:</span>
+            <button class="filter-btn active" data-filter="all">
+                All (37)
+            </button>
+            <button class="filter-btn" data-filter="proto">Proto-Money</button>
+            <button class="filter-btn" data-filter="commodity">
+                Commodity
+            </button>
+            <button class="filter-btn" data-filter="coin">Coinage</button>
+            <button class="filter-btn" data-filter="bimetal">Bimetallic</button>
+            <button class="filter-btn" data-filter="credit">Credit</button>
+            <button class="filter-btn" data-filter="paper">Paper</button>
+            <button class="filter-btn" data-filter="reform">
+                Reform / Collapse
+            </button>
+            <button class="filter-btn" data-filter="fiat">Fiat</button>
+            <button class="filter-btn" data-filter="digital">Digital</button>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+
+        <div class="site-footer">
+            Sources: Wikipedia, <em>History of Money</em> (primary citations
+            from Sumerian cuneiform scholarship, Lydian numismatics, Song
+            Dynasty records, Bank of England archives). Key secondary sources:
+            Carl Menger, <em>On the Origins of Money</em> (1871); Ludwig von
+            Mises, <em>The Theory of Money and Credit</em> (1912); David
+            Graeber, <em>Debt: The First 5,000 Years</em> (2011); Barry
+            Eichengreen, <em>Globalizing Capital</em> (1996); Michael Hudson on
+            Mesopotamian credit origins. Draft classification assisted by the
+            companion table.
+        </div>
+
+        <script>
+            const T = [
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 1 · PRE-MONETARY SOCIETIES
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Pre-Monetary Societies",
+                    eraPeriod: "~40,000–4,000 BCE",
+                    period: "~40,000–10,000 BCE",
+                    region: "Global",
+                    type: "proto",
+                    typeName: "Proto-Money",
+                    title: "Hunter-Gatherer Reciprocity Networks",
+                    from: "No formal medium of exchange",
+                    to: "Generalized reciprocity & gift economies",
+                    summary:
+                        "Hunter-gatherer bands exchanged through generalized reciprocity — communal sharing of hunted meat, gathered foods, and tools — without precise accounting or expectation of immediate return. The Ju/'hoansi of southern Africa exemplify this system: resources were distributed along kinship lines, with social pressure rather than prices enforcing fairness. Long-distance movement of obsidian and marine shells (documented from ~40,000 BCE) suggests structured exchange networks facilitated by kinship ties, not market logic.",
+                    mechanism:
+                        "The double-coincidence-of-wants problem, which Adam Smith cited as the driver of monetary invention, was dissolved by kinship trust. Within a band of 20–50 people, credit was implicit and indefinite — every person was 'good for it.' Anthropologist Caroline Humphrey's global survey found no documented evidence of a pre-monetary barter economy serving as a precursor to money: the barter myth is a theoretical construction, not an historical fact.",
+                    austrian:
+                        "In Menger's framework, saleability presupposes a market with strangers. Within a kinship band, all goods have effectively equal saleability because exchange is mediated by social obligation rather than price. The probability density is diffused uniformly across all goods via the web of social obligation rather than concentrated in any money-good. Formal money only becomes necessary when trade extends beyond the zone of personal trust — that is, when the exchange context-layer becomes large enough that reputational enforcement breaks down.",
+                    drivers: [
+                        "Kinship trust eliminates double-coincidence",
+                        "Small band size (~20–50)",
+                        "Mobile lifestyle prevents accumulation",
+                        "Communal risk-sharing via meat distribution",
+                    ],
+                },
+                {
+                    era: "Pre-Monetary Societies",
+                    eraPeriod: "~40,000–4,000 BCE",
+                    period: "~10,000–4,000 BCE",
+                    region: "Near East / Europe / East Africa",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Neolithic Grain & Livestock",
+                    from: "Reciprocity / ad hoc inter-village barter",
+                    to: "Grain (barley, wheat) & cattle as proto-monetary stores of value",
+                    summary:
+                        "The Neolithic transition to sedentary agriculture (~10,000 BCE in the Fertile Crescent) created surpluses, permanent settlements, and inter-village exchange. Barley became storable, divisible, and universally desired. Cattle — portable, self-propelled, calorie-dense — served as proto-wealth across pastoral societies from Anatolia to sub-Saharan Africa. The etymology of 'pecuniary' traces to Latin <em>pecus</em> (cattle); the Sanskrit <em>rūpya</em> (silver) derives from <em>rūpa</em> (livestock shape).",
+                    mechanism:
+                        "Grain's saleability derived from universal consumption and measurability: the Sumerian sila (~0.6 litre) and the Egyptian hekat (~4.8 litres) were standard volume units enabling consistent valuation. Cattle were portable wealth with built-in reproductive return. Yet both commodities had fundamental saleability limits: grain decayed, was heavy, and could not cross deserts; cattle were indivisible for small transactions. These limits set the stage for metallic money.",
+                    austrian:
+                        "Grain and cattle achieved proto-monetary status by maximizing saleability within the Neolithic context-layer: universally consumed, storable, divisible (grain), and produced in sufficient quantities for reference pricing. But the probability matrix reveals their constraint: saleability degrades sharply across distance (transport costs), time (spoilage of grain), and denomination (cattle cannot be split). The transition to metals is a topological expansion — a new good achieves higher density across more context-layers simultaneously.",
+                    drivers: [
+                        "Agricultural surplus enabling deferred exchange",
+                        "Storage technology (grain silos, ~7000 BCE Çatalhöyük)",
+                        "Cattle as portable, self-propelling wealth",
+                        "Trade routes requiring durable reference goods",
+                    ],
+                },
+                {
+                    era: "Pre-Monetary Societies",
+                    eraPeriod: "~40,000–4,000 BCE",
+                    period: "~10,000–3,000 BCE",
+                    region: "Pacific Islands (Trobriand)",
+                    type: "proto",
+                    typeName: "Proto-Money",
+                    title: "Kula Ring — Ceremonial Prestige Exchange",
+                    from: "Simple inter-island barter",
+                    to: "Circulating shell necklaces (soulava) & armbands (mwali) as prestige-money",
+                    summary:
+                        "The Kula ring, documented by Bronisław Malinowski (1922) among the Trobriand Islanders of Papua New Guinea, is a system of ceremonial exchange spanning many islands. Shell necklaces circulate clockwise and armbands counter-clockwise, creating an inter-island web of permanent obligation and status. Objects accumulate histories — the more hands they've passed through, the more prestigious they become. Trade goods (food, tools) travel alongside the Kula objects as secondary exchange.",
+                    mechanism:
+                        "The Kula shells served no 'use' function in the ordinary economic sense. Their saleability was entirely social: to possess a famous Kula object was to be embedded in a network of obligation with multiple communities. The objects functioned as a credit-clearing mechanism: a man with a great necklace could mobilize labour and goods from partners throughout his network.",
+                    austrian:
+                        "The Kula ring demonstrates that saleability can exist in a context-layer defined entirely by social status and political alliance rather than material utility. The shell necklace's probability density is concentrated in the 'inter-island political relationship' layer, where it achieves near-monopoly status as the medium of alliance-formation. In all other context-layers (local food exchange, tool trade) it is irrelevant. This is a pure example of context-specific monetary goods that never converge to a single universal money.",
+                    drivers: [
+                        "Inter-island alliance maintenance",
+                        "Risk-pooling across ecologically distinct islands",
+                        "Accumulated prestige through object provenance",
+                        "Ritual obligation as enforcement mechanism",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 2 · TEMPLE CREDIT & EARLY STATES
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Temple Credit & Early States",
+                    eraPeriod: "~3,000–600 BCE",
+                    period: "~3,000–2,500 BCE",
+                    region: "Sumer (Ur, Uruk, Nippur)",
+                    type: "credit",
+                    typeName: "Credit Money",
+                    title: "Mesopotamian Temple Credit — Money Before Coins",
+                    from: "Grain & livestock reciprocity within villages",
+                    to: "Grain + silver as institutional units of account; credit recorded on clay tablets",
+                    summary:
+                        "The earliest monetary records are not coins but clay tablets. Sumerian temples (~3,000 BCE) functioned as proto-central-banks: they extended credit for agricultural production, recorded debts in barley or silver equivalents, and enforced repayment at harvest. The shekel — approximately 8.33g of silver — emerged as a unit of account equivalent to 300 sila of barley under Ur III norms (~2,100–2,000 BCE). Interest was charged: 33% for grain loans, 20% for silver. Periodic 'debt jubilees' (andurārum) cancelled private debts to prevent systemic collapse.",
+                    mechanism:
+                        "Temples held surplus grain, employed hundreds of workers, financed trade caravans to Dilmun and Afghanistan, and issued receipts for deposits. The silver shekel was never a coin — it was a weight unit verified against standardized temple weights. Barley was the wage commodity; silver was the long-distance settlement commodity. Both functioned as money in different context-layers simultaneously, with fixed exchange ratios maintained by institutional authority.",
+                    austrian:
+                        "This is credit-money before coinage: saleability is institutional rather than intrinsic. The shekel's probability density in the palace-accounting context-layer derives from the state's authority to demand tax payment in it — what modern monetary theorists call 'tax-driven' money. David Graeber's argument that virtual credit preceded physical currency is validated here: the ledger (tablet) was the primary monetary instrument; silver was its referent. Two monetary goods (grain, silver) serve two distinct context-layers — a dual-peak probability surface that persisted for two millennia.",
+                    drivers: [
+                        "Temple surplus management requiring accounting",
+                        "Long-distance trade (lapis lazuli, copper, tin)",
+                        "Agricultural credit for planting seasons",
+                        "Ruler-decreed exchange ratios (Hammurabi ~1750 BCE)",
+                    ],
+                },
+                {
+                    era: "Temple Credit & Early States",
+                    eraPeriod: "~3,000–600 BCE",
+                    period: "~2,500–600 BCE",
+                    region: "Mesopotamia (Babylon, Assyria, Akkad)",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Silver Shekel Achieves Monetary Dominance",
+                    from: "Grain/silver dual standard in palace accounting",
+                    to: "Weighed silver as primary monetary metal for decentralized trade",
+                    summary:
+                        "Over two millennia, silver displaced grain as the dominant monetary medium across Mesopotamia and the wider Near East. Hammurabi's Code (~1750 BCE) codified price ratios for goods and services in silver shekels. The Kültepe tablets (~2,000 BCE) document Assyrian merchant networks using silver to finance tin-textile trade across Anatolia — 1,000 km from the issuing temples. Silver was weighed at every transaction against portable standard weights; no royal stamp was required.",
+                    mechanism:
+                        "Silver's decisive advantages over grain: non-perishable over decades, uniform in quality when pure, easily subdivided, and possessing a high enough value-to-weight ratio for long-distance travel. A merchant carrying three shekels of silver (~25g) represented a month's skilled wages. Carrying the equivalent in barley (~180 litres, ~130 kg) was impractical beyond local markets. As trade networks expanded into non-grain-producing ecologies (Anatolia, the Levant, Arabia), silver's saleability across contexts became structurally superior.",
+                    austrian:
+                        "This is a textbook Mengerian convergence: without any central decree mandating silver as money, iterative individual choices — each merchant preferring the good that would be most easily accepted by his counterparty — produced a social monetary institution. Silver's probability density expanded organically from the palace-accounting context-layer into the inter-regional and inter-cultural context-layers. The grain standard didn't collapse; it remained dominant in local agricultural contexts. Two peaks in the probability surface persisted in different layers.",
+                    drivers: [
+                        "Long-distance trade (Assyrian merchant networks, Kültepe tablets)",
+                        "Silver's durability vs. grain's perishability",
+                        "Expanding merchant networks beyond grain ecologies",
+                        "Standardized shekel weights (8.33g) across regions",
+                    ],
+                },
+                {
+                    era: "Temple Credit & Early States",
+                    eraPeriod: "~3,000–600 BCE",
+                    period: "~2,000–500 BCE",
+                    region: "Ancient Egypt",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Egyptian Grain Accounts & Gold Diplomacy",
+                    from: "Subsistence barter within agricultural villages",
+                    to: "Grain (deben weight) for domestic trade; gold/silver for international exchange",
+                    summary:
+                        "Ancient Egypt developed a sophisticated grain-based monetary system administered through state granaries. The deben (~91g) and qite (~9.1g) served as weight standards. Workers on royal projects were paid in grain, oil, and linen rations; prices for private goods were expressed in deben-equivalents. International diplomacy used gold (Egypt controlled Nubian mines). The Amarna archive (14th century BCE) documents gold diplomacy with Mesopotamia and Cyprus — Pharaoh's letters explicitly mention gold as the international exchange commodity.",
+                    mechanism:
+                        "Egypt's relative geographic isolation supported a grain-centered domestic monetary economy, while its role in Mediterranean trade required gold and silver interfaces. This wasn't a failure to modernize — it was a rational dual-layer architecture. The Nile's predictable agriculture made grain a stable reference good domestically; Egypt's gold-mine monopoly made gold the premier international diplomatic currency.",
+                    austrian:
+                        "Egypt presents perhaps the cleanest historical example of a dual-layer monetary topology. Grain achieves near-monopoly probability density in the domestic context-layer (universal consumption, state production, tax payment in grain). Gold achieves high density in the international context-layer (recognized value to foreign counterparties who neither consume Egyptian grain nor accept it in their markets). The two monetary goods serve two topologically distinct exchange contexts without competing.",
+                    drivers: [
+                        "State granaries as monetary infrastructure",
+                        "Nubian gold mines giving diplomatic leverage",
+                        "Geographic isolation supporting domestic grain standard",
+                        "Nile agriculture's predictability as grain-value anchor",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 3 · AGE OF COINAGE
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Age of Coinage",
+                    eraPeriod: "~650–300 BCE",
+                    period: "~650–546 BCE",
+                    region: "Lydia (Western Anatolia)",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Lydian Electrum — World's First Coins",
+                    from: "Weighed silver / 'Hacksilber' ingots and lumps",
+                    to: "State-stamped electrum coins → pure gold/silver bimetallic (Croesus)",
+                    summary:
+                        "King Alyattes of Lydia issued the world's first stamped coins around 630 BCE: electrum (natural gold-silver alloy from the Pactolus River) trites (~4.7g) bearing a lion-head stamp guaranteeing authenticity. King Croesus (~550 BCE) advanced the system by introducing pure gold staters (~8.4g, ~95–98% Au) and silver coins — the first bimetallic currency. These circulated across the Aegean, appeared in Greek temple hoards at Ephesus, and drove Persia to adopt coinage after conquering Lydia in 546 BCE.",
+                    mechanism:
+                        "The state stamp solved the 'assaying problem': instead of weighing and testing every piece of metal at each transaction, the stamp guaranteed both weight and purity — a public-key authentication system for metal. Transaction costs dropped significantly. The innovation was not the use of gold or silver (both were already monetary) but the <em>standardization of verification</em>. Croesus's bimetallic system recognized that different transaction sizes required different metals: large exchanges used gold, daily commerce used silver.",
+                    austrian:
+                        "The coin's innovation is a reduction in verification costs that directly increases saleability. Before stamping, silver's saleability was limited by the need to assay at each exchange — a cost borne differently by different counterparties. The stamp made silver saleable to a wider set of counterparties (those who couldn't assay metal themselves), expanding its probability density across the context-layer of ordinary market transactions. The bimetallic architecture reflects rational context-layer separation: gold for the 'large-value, high-stakes' layer; silver for the 'daily commerce' layer.",
+                    drivers: [
+                        "Rich Pactolus River electrum deposits",
+                        "State stamp as purity/weight guarantee",
+                        "Cross-Aegean trade network requiring standardization",
+                        "Reduced per-transaction verification costs",
+                    ],
+                },
+                {
+                    era: "Age of Coinage",
+                    eraPeriod: "~650–300 BCE",
+                    period: "~550–300 BCE",
+                    region: "Greek city-states",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Greek Silver Coinage & Network Dominance",
+                    from: "Lydian electrum model / weighed metal",
+                    to: "City-specific silver coins (Attic owl, Aeginetan turtle, Corinthian Pegasus…)",
+                    summary:
+                        "Greek city-states adopted coinage rapidly but minted sovereign designs: Athens's owl tetradrachm (17.2g, ~98% Ag, Attic standard), Aegina's sea turtle stater (Aeginetan standard), Corinth's Pegasus. The Attic tetradrachm became a de facto regional reserve currency after the Persian Wars: Delian League tribute was paid in Athenian coinage, spreading owls across the Aegean. By the 4th century BCE, Attic tetradrachms comprised up to 70% of coin hoards in eastern Mediterranean sites. Sparta deliberately resisted coinage, using iron obols to deter commerce.",
+                    mechanism:
+                        "The multiplicity of standards (Aeginetan, Attic, Corinthian, Euboic) reflected decentralized minting without imperial oversight. Merchants relied on reputation and assay practices to navigate different standards. No formal agreement produced Attic dominance — it emerged from Athens's commercial network scale. The Attic tetradrachm's high silver purity (~98%) and stable weight created a reputation premium: merchants knew what they were getting.",
+                    austrian:
+                        "Greek coinage illustrates monetary convergence through network effects without central coordination. The Attic tetradrachm's dominance was not ordained — it emerged because Athens's trade network was largest, making Attic coins the most frequently encountered and therefore most saleable in inter-city transactions. Sparta's deliberate adoption of low-saleability iron obols is a rare example of a state intentionally limiting monetary density to restrict market development — monetary design as social engineering.",
+                    drivers: [
+                        "Athens's Delian League tribute network (460 owls=1 talent)",
+                        "Consistent ~98% silver purity",
+                        "Persian Wars tribute flows denominated in Attic standard",
+                        "Network effect: largest mint serving largest trade network",
+                    ],
+                },
+                {
+                    era: "Age of Coinage",
+                    eraPeriod: "~650–300 BCE",
+                    period: "~1,000–221 BCE",
+                    region: "Zhou → Qin China",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Chinese Bronze Tool-Money → Standardized Round Coins",
+                    from: "Cowrie shells (Shang Dynasty); natural and cast bronze imitations",
+                    to: "Bronze spade/knife coins → Qin round coin (bàn liǎng) standardization",
+                    summary:
+                        "China's monetary evolution followed an independent path. Cowrie shells served from the Shang Dynasty (~1600 BCE). By the Zhou period (~1000 BCE), bronze tool-shaped money emerged — spade money (bù) and knife money (dāo) — cast to mimic agricultural implements whose familiar utility gave them pre-monetary saleability. The Warring States period (475–221 BCE) saw regional proliferation of competing coin types. Qin Shi Huang's unification (221 BCE) eliminated all regional variants and mandated the round coin with square hole (bàn liǎng), establishing China's monetary standard for the next two millennia.",
+                    mechanism:
+                        "Bronze tools had pre-existing saleability as useful goods in agricultural societies. The tool-money bridge reduced the cognitive and institutional leap to monetary abstraction — spade-coins were accepted partly because they were shaped like spades. As urbanization increased and monetary thinking matured, the symbolic connection faded; the round coin's pure convenience won. Qin's standardization was a political act that forced monetary convergence, eliminating regional monetary zones by decree.",
+                    austrian:
+                        "The Chinese path shows how a good can inherit monetary saleability from use-value before losing that inheritance to pure monetary function. The tool-coin's probability density in agricultural communities derived partly from the tool's direct utility (a knife that could also be money is doubly acceptable). Political fragmentation during Warring States created multiple context-separated monetary zones, each with different probability peaks. Qin's unification was a forced topological consolidation — the state mandated a single peak across all Chinese context-layers simultaneously.",
+                    drivers: [
+                        "Bronze metallurgy and agricultural symbolism of tools",
+                        "Urbanization reducing tool-utility of tool-coins",
+                        "Warring States political fragmentation maintaining regional monetary zones",
+                        "Qin's forced standardization (221 BCE)",
+                    ],
+                },
+                {
+                    era: "Age of Coinage",
+                    eraPeriod: "~650–300 BCE",
+                    period: "~600–300 BCE",
+                    region: "India (Mahajanapadas → Mauryan)",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Indian Punch-Marked Silver — Distributed Certification",
+                    from: "Cattle, grain, and weighed metal (satamanas / silver bars)",
+                    to: "Silver punch-marked coins (karshapana, ~2–3g) with multiple authority stamps",
+                    summary:
+                        "The Mahajanapadas — sixteen great kingdoms along the Indo-Gangetic plain — independently developed silver punch-marked coins around the 7th–6th centuries BCE, contemporaneous with Lydian coinage but entirely unrelated to it. Multiple symbols (geometric, solar, animal, royal) were hammered onto unflattened silver blanks, often by merchant guilds, local rulers, or regional authorities to certify weight and purity. Known as karshapanas, they circulated as the principal currency in urbanizing economies through the Mauryan Empire (~321–185 BCE).",
+                    mechanism:
+                        "The multiple punch-marks system created a distributed certification chain: each mark was a voucher from a different authority for the silver's quality. A coin might bear marks from the central kingdom, a regional satrap, and a merchant guild — each adding their reputation to the coin's saleability. This contrasts sharply with Lydian royal monopoly minting and reflects India's more politically distributed structure.",
+                    austrian:
+                        "Punch-marked coins demonstrate that monetary certification need not be centralized. Multiple authorities contributed to a coin's saleability through their marks — a distributed-trust model analogous in structure to modern multi-signature cryptographic systems. The coin's probability density in Indian exchange networks derived not from royal authority alone but from the aggregate reputation of all who had marked it, creating resilience against any single authority's failure but also complexity in cross-regional exchange.",
+                    drivers: [
+                        "Mahajanapada urban economies (Varanasi, Pataliputra)",
+                        "Inter-regional trade along Indo-Gangetic plain",
+                        "Silver availability via Persian trade networks",
+                        "Independent parallel to Lydian development — no diffusion",
+                    ],
+                },
+                {
+                    era: "Age of Coinage",
+                    eraPeriod: "~650–300 BCE",
+                    period: "~550–330 BCE",
+                    region: "Achaemenid Persian Empire",
+                    type: "bimetal",
+                    typeName: "Bimetallic",
+                    title: "Persian Gold Daric + Silver Siglos — Explicit Two-Tier System",
+                    from: "Silver bars and tribute goods",
+                    to: "Gold daric (8.35g, 98%+ Au) for imperial finance + silver siglos (5.6g) for local trade",
+                    summary:
+                        "The Achaemenid Persians, inheriting Lydian monetary infrastructure after Cyrus conquered Lydia (546 BCE), developed the most explicitly two-tier bimetallic system of the ancient world. The gold daric (~8.35g) bore the king running as an archer; the silver siglos (~5.6g) circulated locally. The exchange ratio was 1 daric = 20 siglos. The daric was recognized from Athens (Athenian treasury records) to Egypt (Elephantine papyri) to India — an international reserve currency. The siglos was primarily Iranian.",
+                    mechanism:
+                        "The empire needed two monetary scales simultaneously: (1) imperial-scale transactions — tribute collection from 20+ satrapies, satrapal treasury operations, military pay for 10,000+ soldiers — where gold's value density (high value, low weight) was essential; and (2) local market transactions across diverse provincial economies where silver's smaller denomination worked. The explicit fixed ratio (1:20) attempted to bridge the layers institutionally.",
+                    austrian:
+                        "The Achaemenid daric/siglos architecture is the ancient world's clearest designed example of context-layered monetary structure. Persian administrators recognized that a single metal optimized for one context-layer would be suboptimal in others. The gold daric maximized probability density in the 'imperial finance' layer; the silver siglos in the 'local market' layer. Their fixed ratio was an institutional bridge between layers — though silver remained independently more saleable in daily commerce, demonstrating that ratio-bridging cannot fully merge distinct layers.",
+                    drivers: [
+                        "Imperial scale: 20+ satrapies paying tribute",
+                        "Military logistics: gold for large payrolls, silver for local supply",
+                        "Inherited Lydian monetary expertise",
+                        "Connecting diverse monetary ecologies (Greek, Egyptian, Indian)",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 4 · CLASSICAL WORLD
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Classical World",
+                    eraPeriod: "~330 BCE–500 CE",
+                    period: "~330–280 BCE",
+                    region: "Macedonian Empire / Hellenistic kingdoms",
+                    type: "bimetal",
+                    typeName: "Bimetallic",
+                    title: "Alexander's Gold Staters — Monetizing a Continent",
+                    from: "Macedonian silver tetradrachms; Persian gold hoards (unmonetized)",
+                    to: "Gold staters (international) + silver drachmas (domestic) + massive new coin supply",
+                    summary:
+                        "Alexander the Great's conquest of Persia (331–323 BCE) transferred an estimated 180,000 talents of gold and silver from Persian royal hoards into active circulation — the greatest single monetization event in ancient history. Gold staters (~8.6g) minted from Persian reserves paid the army and funded cities across the new empire from Egypt to Bactria. Hellenistic successor states continued bimetallic minting. The new coin supply transformed subsistence-adjacent economies from the Levant to Central Asia into market economies.",
+                    mechanism:
+                        "Alexander paid his 40,000–50,000-strong army at least partly in gold, which then circulated rapidly through local markets as soldiers purchased supplies, gifts, and services. The sudden supply shock — Persia's accumulated hoards now liquid — dramatically lowered the relative price of precious metals and stimulated exchange across the Hellenistic world. Successor kingdoms minted continuously to maintain the new monetized economy.",
+                    austrian:
+                        "Alexander's campaigns demonstrate a supply-side monetary transition: a massive increase in gold availability elevated its probability density across exchange contexts simply by making it more accessible to market participants. Persian hoards had removed gold from the price matrix; Alexander reinserted it at scale. The resulting monetary expansion reflected a genuine increase in the economy's monetized scope — not inflation in the modern sense, but a structural expansion of the market economy's reach into previously non-monetized communities.",
+                    drivers: [
+                        "Persian treasury looting (Susa, Persepolis, Ecbatana: ~180,000 talents)",
+                        "Military payroll creating coin circulation",
+                        "Hellenistic trade network unification from Egypt to Punjab",
+                        "Thracian gold mines (Philip II's prior accumulation)",
+                    ],
+                },
+                {
+                    era: "Classical World",
+                    eraPeriod: "~330 BCE–500 CE",
+                    period: "~211 BCE–64 CE",
+                    region: "Roman Republic / Early Empire",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Roman Silver Denarius — Imperial Monetary Unification",
+                    from: "Aes grave (cast bronze bars) + Greek-influenced silver",
+                    to: "Silver denarius (~4.5g, 95–98% Ag) as universal currency of 50 million people",
+                    summary:
+                        "The silver denarius, introduced in 211 BCE during the Second Punic War, became the monetary backbone of the Roman Empire for four centuries. The system comprised three tiers: the gold aureus (25 denarii), silver denarius, and bronze as/sestertius. Uniform purity, Rome's military enforcement, and the Empire's political unity created a monetary area encompassing the largest population under a single money in Western history to that point. Military pay (stipendium), tax collection, and commodity pricing all operated in denarii.",
+                    mechanism:
+                        "Roman monetary unification was as much a political achievement as an economic one. A single currency across 50 million people required: standardized minting (eventually centralized under imperial control), systematic coin distribution via military pay, and legal enforcement of tender laws. Provincial minting continued for some denominations but under Roman oversight. The result was near-universal saleability of the denarius across the empire's context-layers.",
+                    austrian:
+                        "The Roman denarius achieved extraordinarily high probability density across virtually all context-layers within the empire: local markets, army pay, long-distance commerce, tax payment, international trade. This near-monopoly on saleability was the monetary expression of Roman political unity. It also created fragility: the probability density was sustained by institutional coherence, not intrinsic commodity value. When that coherence began to fracture in the 3rd century, the monetary topology fractured with it — a lesson about the institutional nature of all money's saleability.",
+                    drivers: [
+                        "Punic War military finance requiring standardized pay",
+                        "Roman political unification creating one tax jurisdiction",
+                        "Spanish silver mines (Hispania: largest in ancient world)",
+                        "Network effects of 50-million-person economy with single currency",
+                    ],
+                },
+                {
+                    era: "Classical World",
+                    eraPeriod: "~330 BCE–500 CE",
+                    period: "~64–300 CE",
+                    region: "Roman Empire",
+                    type: "reform",
+                    typeName: "Collapse / Reform",
+                    title: "Roman Debasement Crisis — Gresham's Law in Action",
+                    from: "Pure silver denarius (~95% Ag, ~4.5g)",
+                    to: "Debased 'denarius' (5–50% Ag, reduced weight) → near-bronze antoninianus",
+                    summary:
+                        "Beginning with Nero in 64 CE (90% Ag, ~3.4g) and accelerating through the 3rd-century crisis, Roman emperors systematically reduced the denarius's silver content to fund military expenditures. By 250 CE, silver content had fallen to ~50%; under Gallienus (260s CE) it reached effectively 2–5%, rendering the coin essentially bronze with a thin silver wash. Market prices rose, good old coins disappeared from circulation (Gresham's Law), hoarding intensified, and parts of the monetary economy reverted to payment in kind (annona militaris). Diocletian's Edict on Maximum Prices (301 CE) attempted to suppress the resulting inflation and failed catastrophically.",
+                    mechanism:
+                        "Each emperor faced the same constraint: military expenditure (especially Rhine/Danube frontier defense, civil war payrolls) exceeded tax revenues. Debasement offered temporary seigniorage by reminting older, purer coins at lower silver content. Each round of debasement forced a further round as prices adjusted. The process was self-accelerating — a spiral that could only be arrested by either fiscal reform or monetary reset.",
+                    austrian:
+                        "Debasement is the destruction of monetary saleability from within. When silver content falls unpredictably, the coin's saleability as a store of value collapses: agents accept it only at a discount, hoard pure older coins (Gresham's Law — bad money drives out good), and demand more coins for the same goods. Gresham's Law is precisely a statement about probability density: debased coins flood the local exchange context-layer (agents prefer to part with bad coins) while good coins migrate to hoards or foreign contexts where intrinsic value is recognized. Mises's 'crack-up boom' dynamics are visible in the late 3rd century: once confidence in the denarius's purchasing power collapsed, velocity accelerated catastrophically.",
+                    drivers: [
+                        "Military overextension: Rhine/Danube frontier, civil wars",
+                        "Fiscal revenue insufficient for military expenditure",
+                        "Gresham's Law self-reinforcing acceleration",
+                        "3rd-century political crisis (50+ emperors in 50 years)",
+                    ],
+                },
+                {
+                    era: "Classical World",
+                    eraPeriod: "~330 BCE–500 CE",
+                    period: "~309 CE–1000 CE",
+                    region: "Byzantine Empire",
+                    type: "reform",
+                    typeName: "Reform",
+                    title: "Byzantine Gold Solidus — The Dollar of the Middle Ages",
+                    from: "Debased late-Roman currency (antoninianus, nummus)",
+                    to: "Pure gold solidus (4.55g, 99%+ Au) — essentially unchanged for ~700 years",
+                    summary:
+                        "Constantine I introduced the solidus (~309–312 CE): 4.55g of nearly pure gold, replacing the debased radiates. It remained essentially unchanged in weight and fineness for seven centuries — historians call it the 'dollar of the Middle Ages.' Byzantine merchants used it from Scandinavia to India. Smaller copper follis coins served daily transactions. The solidus's reputation extended so far that it was counterfeited across Eurasia, imitated by Islamic dinars and Saxon coins, and listed in price schedules from Lombardy to Ceylon.",
+                    mechanism:
+                        "The solidus's stability was institutional and political: the Byzantine state had consistent gold revenues (Anatolian and Balkan mines, trade taxes, silk monopoly) and sufficient administrative capacity to maintain minting standards. Crucially, the Byzantine emperor's symbolic and religious authority reinforced the coin's saleability — it bore the emperor's image as Christian sovereign, giving it cultural resonance across the Christian Mediterranean.",
+                    austrian:
+                        "The solidus achieved maximum saleability through consistent purity — it was the most credibly predictable store of value available across the early medieval world. Its probability density was high across virtually all context-layers: local markets (via copper subdivisions), long-distance trade, diplomatic exchange, and tax payment. The 700-year stability demonstrates that monetary saleability is not an inherent property of gold but of institutional credibility maintained over time. The solidus was gold, but its saleability was the Byzantine state's consistent commitment to its quality.",
+                    drivers: [
+                        "Constantine's fiscal reform agenda",
+                        "Byzantine gold mine revenues and trade tax income",
+                        "Imperial symbolic authority reinforcing monetary trust",
+                        "Absence of competitors: Rome had collapsed, Islam not yet emerged",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 5 · MEDIEVAL & ISLAMIC WORLD
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Medieval & Islamic World",
+                    eraPeriod: "~500–1250 CE",
+                    period: "~696–1200 CE",
+                    region: "Islamic Caliphates (Umayyad → Abbasid)",
+                    type: "bimetal",
+                    typeName: "Bimetallic",
+                    title: "Islamic Gold Dinar & Silver Dirham — Pan-Islamic Standard",
+                    from: "Byzantine solidi and Sassanid drachms (inherited)",
+                    to: "Gold dinar (4.25g) + silver dirham (2.975g) — unified bimetallic standard",
+                    summary:
+                        "Caliph Abd al-Malik's monetary reform (696–697 CE) replaced Byzantine and Sassanid coins with distinctly Islamic coins bearing Arabic inscriptions and no figurative imagery. The dinar and dirham circulated from Al-Andalus (Spain) to Sindh (Pakistan), creating the largest unified monetary zone since Rome. The consistent 4.25g gold dinar standard was maintained for centuries — it matched the Byzantine solidus weight closely enough for easy exchange. West African gold (Mali/Ghana) and Central Asian silver provided the commodity base.",
+                    mechanism:
+                        "The Islamic prohibition on usury (riba) drove development of alternative financial instruments: mudarabah (profit-sharing partnerships), musharakah (joint ventures), sakk (checks), and suftaja (bills of exchange). These extended the monetary economy beyond physical coin into context-layers (long-distance trade, time-deferred payment) where carrying coin was impractical or dangerous, creating a sophisticated financial architecture layered atop the dinar/dirham base.",
+                    austrian:
+                        "The Islamic monetary reform demonstrates how a unifying cultural and legal framework can dramatically expand a currency's saleability across contexts. The dinar's acceptance from Cordoba to Calcutta reflected not only its consistent gold content but the shared Islamic legal norms for contracts, partnership, and debt — which gave Islamic financial instruments (sakk, hawala) saleability precisely because they were enforceable across the entire Islamic world. The mudarabah/sakk layer built directly on the dinar's commodity credibility, extending monetary density into context-layers the coin itself couldn't reach.",
+                    drivers: [
+                        "Pan-Islamic trade network (Indian Ocean, Silk Road, Trans-Sahara)",
+                        "Consistent gold/silver standards maintained by caliphate mints",
+                        "Islamic financial law enabling credit instruments (sakk, suftaja, hawala)",
+                        "West African gold and Central Asian silver supply security",
+                    ],
+                },
+                {
+                    era: "Medieval & Islamic World",
+                    eraPeriod: "~500–1250 CE",
+                    period: "~800–1300 CE",
+                    region: "Abbasid trade networks (Baghdad → Malacca)",
+                    type: "credit",
+                    typeName: "Credit Money",
+                    title: "Islamic Hawala, Sakk & Suftaja — Context-Specific Credit Money",
+                    from: "Physical gold/silver coin transport over long distances",
+                    to: "Bills of credit (sakk, suftaja, hawala) operating within trust networks",
+                    summary:
+                        "Islamic merchants pioneered credit instruments that substituted for physical coin within trusted networks. The sakk (precursor to 'cheque') allowed a deposit in Baghdad to be drawn upon in Cairo without moving metal. The suftaja was a bill of exchange for long-distance remittance. The hawala system enabled informal value transfer through a chain of trusted agents — a system still actively used globally today for diaspora remittances. All operated without interest, using profit-sharing or fee structures to comply with Islamic law.",
+                    mechanism:
+                        "These instruments worked because Islamic merchant networks maintained robust reputational enforcement: contract violations were tracked across the entire community (evidenced in Cairo Geniza records from Jewish traders embedded in Islamic networks, documenting Arab, Persian, and Indian merchant practices). Within this trust infrastructure, a written claim was more saleable than coin for long-distance transactions — lighter, safer from theft, instantly executable at distant nodes.",
+                    austrian:
+                        "The hawala/sakk system is a pure demonstration of context-specific saleability. A sakk had zero saleability outside the merchant trust network and maximum saleability within it. The instrument's probability density was concentrated exclusively in the 'inter-city merchant exchange among trusted counterparties' context-layer. Outside that layer — in a bazaar, with an unknown counterparty, in a foreign jurisdiction — the sakk was worthless. This is money that is maximally dense in one topological layer and zero in all others: the most extreme example of context-specific monetary goods in history.",
+                    drivers: [
+                        "Indian Ocean and Silk Road trade requiring cross-border payment",
+                        "Islamic legal framework enforcing commercial contracts",
+                        "Reputational enforcement across merchant community",
+                        "Trans-Saharan and Mediterranean commerce extending networks",
+                    ],
+                },
+                {
+                    era: "Medieval & Islamic World",
+                    eraPeriod: "~500–1250 CE",
+                    period: "~793–1100 CE",
+                    region: "Carolingian Europe → Feudal fragmentation",
+                    type: "reform",
+                    typeName: "Reform",
+                    title: "Carolingian Silver Denier & the Abstract £-s-d System",
+                    from: "Fragmented Merovingian coins, tallies, barter",
+                    to: "Standardized silver denier + abstract libra-solidus-denier (£-s-d) money-of-account",
+                    summary:
+                        "Charlemagne's monetary reform (~793 CE) standardized the silver denier at ~1.6–1.7g, with 240 deniers = 1 pound of silver. The £-s-d system (1 pound = 20 shillings = 240 pence) provided an abstract money-of-account for bookkeeping and rents — notably without coins for pounds or shillings, which existed only as abstract units. As the Carolingian Empire fragmented after 814, minting authority devolved to hundreds of local lords, producing hundreds of coin types with varying silver content. Yet the abstract £-s-d framework maintained accounting consistency across this chaos, persisting in Britain until 1971.",
+                    mechanism:
+                        "The money-of-account decoupled the unit of account from the physical coins. Rents, feudal dues, and commercial contracts were recorded in pounds and shillings even though only deniers circulated and their quality varied widely. This abstract layer insulated commerce from physical coin chaos, functioning as a 'shadow standard' maintained by the legal system. It demonstrates that monetary functions can be separated: the unit-of-account function can survive the collapse of the medium-of-exchange function.",
+                    austrian:
+                        "The Carolingian reform reveals a critical insight: the unit-of-account function has its own probability density, separable from the medium-of-exchange function. The £-s-d abstract system achieved near-monopoly density in the 'bookkeeping and contract context-layer' independently of whatever physical coins circulated. When feudal minting fragmented the physical coin layer, the abstract accounting layer maintained coherence — demonstrating that different monetary functions can achieve different densities in different context-layers, not necessarily attached to the same physical good.",
+                    drivers: [
+                        "Carolingian political unification requiring standardized taxation",
+                        "Abstract £-s-d enabling consistent bookkeeping despite coin fragmentation",
+                        "Surviving silver supply from Merovingian period",
+                        "Feudal devolution of minting authority (100+ local mints by 900 CE)",
+                    ],
+                },
+                {
+                    era: "Medieval & Islamic World",
+                    eraPeriod: "~500–1250 CE",
+                    period: "~800–1400 CE",
+                    region: "West Africa (Ghana → Mali Empire)",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "West African Gold Dust & Trans-Saharan Monetary Ecology",
+                    from: "Salt, cowrie shells (Cypraea moneta), cloth (as local money)",
+                    to: "Gold dust (mithqal weight standard) for trans-regional exchange",
+                    summary:
+                        "The Ghana Empire (~800–1100 CE) and Mali Empire (~1200–1400 CE) sat atop the world's largest known gold deposits. Trans-Saharan trade connected sub-Saharan gold production to North African and Islamic demand. Gold dust, measured in the mithqal (~4.25g — matching the Islamic dinar standard), became the monetary medium for cross-ecological exchange between the Sahel and Mediterranean worlds. Simultaneously, salt from Saharan mines played a parallel domestic monetary role — the famous exchange of 'gold for salt, weight for weight' reflects complementary monetary ecologies.",
+                    mechanism:
+                        "Gold's scarcity north of the Sahara made it extraordinarily saleable to North African and Arab traders. West African merchants accepted salt in return — essential for preservation and scarce in the inland Sahel. Each good was 'rare' from the other side's perspective, giving both high saleability in the inter-regional exchange context-layer. The mithqal weight standard bridged Islamic monetary practice and West African gold measurement, enabling direct exchange without currency conversion.",
+                    austrian:
+                        "The trans-Saharan monetary system is a demonstration of cross-ecological monetary complementarity. Salt dominates the domestic West African context-layer (universally consumed, locally scarce, tradeable for most subsistence goods). Gold dominates the trans-regional context-layer (universally desired by North African and Arab counterparties who have no use for West African salt). The mithqal standard linked these layers — the same weight unit served both systems, creating a bridge between monetary topologies. This is monetary integration without monetary unification.",
+                    drivers: [
+                        "West African (Bambuk, Bure) gold deposits",
+                        "Saharan salt mines (Taghaza) as complementary scarce good",
+                        "Trans-Saharan caravan networks (Sijilmasa → Timbuktu)",
+                        "Islamic merchant demand via dinar mithqal standard alignment",
+                    ],
+                },
+                {
+                    era: "Medieval & Islamic World",
+                    eraPeriod: "~500–1250 CE",
+                    period: "~997–1023 CE",
+                    region: "Song Dynasty China (Sichuan Province)",
+                    type: "paper",
+                    typeName: "Paper Money",
+                    title: "Chinese Jiaozi — The World's First Paper Money",
+                    from: "Heavy iron and copper coins (burdensome for long-distance merchants)",
+                    to: "Merchant paper deposit receipts (jiaozi) → state-managed paper currency",
+                    summary:
+                        "Sichuan merchants created the world's first paper money around 997 CE: promissory notes (jiaozi, 'exchange bills') backed by deposits of iron cash, issued by 16 private firms to avoid transporting extremely heavy iron coins over mountain roads. In 1023 CE, facing unregulated private issuance and early counterfeiting, the Song government nationalized jiaozi production: standardizing notes with official seals, limiting initial circulation to ~1.2 million strings of cash, and requiring partial commodity backing. The jiaozi became the world's first state-managed convertible paper currency.",
+                    mechanism:
+                        "The jiaozi solved a specific, local problem: Sichuan's iron coin economy made long-distance transport prohibitively expensive. Its saleability was initially network-dependent — only merchants who trusted the 16 issuing firms used it. Government takeover extended saleability through mandatory tax acceptance. But state control also introduced the fiscal temptation that would eventually destroy it: the ability to issue paper without holding equivalent metal.",
+                    austrian:
+                        "Paper money's saleability derives entirely from institutional trust — it has zero intrinsic value. The jiaozi demonstrates how network effects can be concentrated by authority: the government's note was saleable to anyone who owed taxes (nearly everyone), giving it immediate broad acceptance beyond the merchant network. But this also meant the government could erode saleability by overprinting — which it eventually did as war finance pressures built during the Jurchen invasions. The paper context-layer is inherently more fragile than the metal context-layer because trust — not commodity — is the sole anchor.",
+                    drivers: [
+                        "Iron coin transport costs in Sichuan mountain geography",
+                        "Merchant trust networks among 16 issuing firms",
+                        "Song government fiscal needs (and fiscal temptation)",
+                        "State capacity to enforce note acceptance via tax-receivability",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 6 · COMMERCIAL REVOLUTION
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1260–1368 CE",
+                    region: "Mongol Yuan Dynasty China",
+                    type: "paper",
+                    typeName: "Paper Money",
+                    title: "Mongol Fiat Chao — First Documented Hyperinflation",
+                    from: "Song paper money (jiaozi/huizi) + metal coins",
+                    to: "Fiat chao with metal prohibition → over-issuance → hyperinflation → collapse",
+                    summary:
+                        "Kublai Khan in 1260 CE unified China's monetary system under the chao (jiaochao) — fiat paper money backed initially by state authority and silk/silver pledges. Metal coins were prohibited; all commerce was to be conducted in chao. For ~50 years the system functioned relatively well, impressing Marco Polo ('all trade in Kublai's empire is conducted with this paper'). Then military campaigns (Vietnam, Japan, Java) drove fiscal deficits, over-issuance accelerated, public trust evaporated, and the Yuan Dynasty collapsed partly due to monetary chaos. Monthly inflation rates in the 1350s may have exceeded 50%.",
+                    mechanism:
+                        "The chao's early success rested on: (1) Mongol military power enforcing acceptance, (2) initial commodity backing giving credibility, and (3) the vast Mongol trade network's scale-benefits from a single currency. Its failure followed the classic fiscal dynamic: deficits → printing → inflation → more printing → hyperinflation. By the 1350s, chao circulated at tiny fractions of face value; the Ming dynasty's founding in 1368 ended the experiment.",
+                    austrian:
+                        "The chao is Mises's 'crack-up boom' (Katastrophenhausse) before the modern era. State coercion can temporarily concentrate probability density in a fiat money-good by eliminating alternatives through legal prohibition. But coercion cannot substitute for credibility. When the state's promise to maintain purchasing power is visibly and repeatedly violated, agents find ways to restore saleable alternatives: barter, foreign coin, precious goods, land. The saleability of fiat money is borrowed from future credibility; over-issuance consumes that borrowing irrecoverably, and no subsequent decree can restore it without a fundamental credibility reset.",
+                    drivers: [
+                        "Mongol military power enabling initial forced acceptance",
+                        "Fiscal deficits from failed campaigns (Japan, Vietnam, Java)",
+                        "Metal coin prohibition eliminating monetary alternatives",
+                        "Mises's crack-up boom: declining trust → velocity spike → collapse",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1252–1500 CE",
+                    region: "Italian city-states (Florence, Venice, Genoa)",
+                    type: "coin",
+                    typeName: "Coinage",
+                    title: "Florentine Gold Florin & Venetian Ducat",
+                    from: "Silver gros and deniers (local; unreliable outside issuers' territories)",
+                    to: "Gold florin (3.5g, 24-carat) and ducat (3.54g) as international reserve currencies",
+                    summary:
+                        "Florence introduced the florin in 1252 — 3.5g of nearly pure gold — and Venice followed with the ducat in 1284 (also ~3.54g, 99.47% Au). Both became the international reserve currencies of medieval Europe, used in commercial contracts from England to Constantinople. Counterfeiting a florin carried the death penalty in Florence. The Bardi, Peruzzi, and Medici banking families maintained correspondents across Europe, making the florin the benchmark for international high-value transactions. Silver coinage remained for local trade, producing the first deliberately segmented international/local bimetallic hierarchy in the modern sense.",
+                    mechanism:
+                        "Long-distance trade between Italian city-states and northern Europe (Champagne fairs, Bruges, Antwerp) required money accepted across political jurisdictions by counterparties with no shared sovereign. Gold's high value-to-weight ratio made it ideal for large commercial transactions. The florin's consistent gold fineness and Florentine banking network's reputation created a global credit reputation that extended the florin's saleability beyond the coin itself — a Florentine letter of credit was nearly as good as gold.",
+                    austrian:
+                        "The florin/ducat transition reflects a new context-layer emerging: 'international high-value commerce between counterparties sharing no political authority.' In this layer, neither local silver coins (enforced by local authorities unrecognized abroad) nor commodity barter is functional. Pure-gold coins with globally recognized fineness achieved maximum saleability in this layer. The deliberate silver/gold hierarchy mirrors the context-layer hierarchy: local silver layer → international gold layer. Italian merchant-bankers managed both layers consciously — the first explicit monetary architects.",
+                    drivers: [
+                        "Champagne fair networks requiring cross-jurisdictional money",
+                        "Florentine banking network (Bardi, Peruzzi, Medici) extending saleability",
+                        "English wool / Flemish cloth trade requiring stable large-denomination money",
+                        "Consistent 24-carat fineness across decades of minting",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1300–1600 CE",
+                    region: "Italian/Flemish/German merchant networks",
+                    type: "credit",
+                    typeName: "Credit Money",
+                    title: "Bills of Exchange — Lettera di Cambio",
+                    from: "Physical gold coin transport across Europe (dangerous, slow, expensive)",
+                    to: "Bills of exchange circulating within trusted merchant-banking networks",
+                    summary:
+                        "Italian merchant-bankers (Bardi, Peruzzi, Medici, Strozzi, Fugger) developed the lettera di cambio — a written order directing a correspondent bank to pay a specified sum in another city, in a different currency, at a future date. The time delay and currency conversion disguised interest to circumvent Church usury prohibitions while providing actual credit. Bills circulated through four major annual exchange fairs (Champagne, Lyon, Antwerp, Besançon) where multilateral netting cleared enormous volumes without moving physical gold.",
+                    mechanism:
+                        "Bills circulated within the trusted network of merchant-bankers maintaining correspondents in all major commercial cities. Endorsement (transferring the bill to a third party) allowed them to function as quasi-money within the network. Bills unsettled at maturity were 'recycled' (given 'respite') at future fairs — the Genoese system created a perpetual revolving credit mechanism for European trade that operated for over 400 years with remarkably few systemic failures.",
+                    austrian:
+                        "Bills of exchange represent the purest form of context-specific saleability: they achieved extraordinary density within the merchant-banking trust network and were completely worthless outside it. Their saleability derived from the aggregate of: (1) the drawer's reputation, (2) the acceptor's creditworthiness, and (3) legal enforceability of commercial contracts across jurisdictions. This is money where all value is institutional — no intrinsic value, no state backing — but the institutional structure (family networks, guild reputation, annual fair clearing) was robust enough to serve as the backbone of European commerce for four centuries.",
+                    drivers: [
+                        "Usury prohibition driving disguised interest structures",
+                        "International trade finance for silk, wool, spice routes",
+                        "Merchant-banking correspondent network across 20+ cities",
+                        "Annual fair clearing enabling multilateral netting without specie movement",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1300–1520 CE",
+                    region: "Mesoamerica (Aztec Empire / Mexica)",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Aztec Multi-Layered Commodity Money (Cacao, Cloth, Copper)",
+                    from: "Cloth (quachtli), various tribute goods",
+                    to: "Cacao beans (small), cotton mantles (medium), copper axe-monies (medium), gold-dust quills (large)",
+                    summary:
+                        "The Aztec economy employed multiple simultaneous commodity monies stratified by transaction size — a fully explicit multi-tier system. Cacao beans served as small-denomination change: ~100 cacao = 1 large mantle cloth (quachtli). Copper axe-monies (hachas) served medium transactions. Cotton cloth was a store of value and large-denomination unit. Gold dust in standardized quills served elite exchanges. Spanish accounts of Tlatelolco market describe extraordinary monetary precision: goods priced in cacao fractions, wages in mantles, tribute in bundles of specified goods.",
+                    mechanism:
+                        "Cacao's saleability derived from dual nature: a luxury consumable (hot chocolate was socially prestigious) and a divisible, relatively uniform unit of exchange. Its mild counterfeit-resistance (difficult to hollow without detection) and cultural universality in Mesoamerica made it ideal for the small-transaction layer. The multiple-goods architecture was not primitive — it was a rational response to the absence of divisible metals in the Mesoamerican ecology.",
+                    austrian:
+                        "The Aztec system demonstrates co-existing monetary goods serving distinct denomination context-layers without competition. Each good achieved maximum saleability in its denomination layer: cacao for the small-transaction layer (daily food market, artisan's daily wage), cloth for the medium-value layer (artisan payment, tribute unit), gold for the elite/diplomatic layer. These layers were relatively separable because Aztec society maintained clear transaction-type boundaries enforced by the tlatoani's legal and tribute system. The Spanish introduction of silver disrupted all layers simultaneously by imposing a single-metal standard across all transaction sizes.",
+                    drivers: [
+                        "Cacao's cultural prestige and consumability giving intrinsic demand",
+                        "Uniform bean as natural small denomination",
+                        "Absence of divisible metals in Mesoamerican ecology",
+                        "Aztec tribute economy providing centralized denomination standardization",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1200–1530 CE",
+                    region: "Andean South America (Inca Empire)",
+                    type: "proto",
+                    typeName: "Proto-Money",
+                    title: "Inca Non-Monetary Economy — Reciprocity at Imperial Scale",
+                    from: "Clan reciprocity (ayllu)",
+                    to: "State-managed redistribution (mita labor tribute + state storehouse system) — no money",
+                    summary:
+                        "The Inca Empire (~1,200–1,532 CE), at its height encompassing ~12 million people from Colombia to Chile, operated without money of any kind. Exchange was organized through: (1) labor tribute (mita) owed by each household to the state, compensated by state provision of food, clothing, and tools during service; (2) state storehouses (qollqas) redistributing surplus; and (3) reciprocal obligations within kinship groups (ayllu). Gold and silver were sacred materials reserved for religious and royal purposes — not monetary.",
+                    mechanism:
+                        "The Inca system solved the allocation problem through administrative recordkeeping (quipu knotted strings for accounting) rather than price signals. State redistribution substituted for market exchange at the imperial level. Spanish conquistadors were initially baffled by the absence of markets — they had no conceptual framework for an empire without money. Post-conquest introduction of silver currency was a violent imposition of an alien monetary topology.",
+                    austrian:
+                        "The Inca case is the most dramatic counterexample to the view that monetary exchange is natural or inevitable. An empire of 12 million people achieved complex economic coordination without any money-good achieving high probability density. The Inca state substituted administrative command for price signals, using quipu recordkeeping as the 'ledger' and labor tribute as the 'currency.' The post-conquest collapse of this system under Spanish monetary imposition demonstrates that monetary topologies are institutional constructions — they can be built, and they can be destroyed.",
+                    drivers: [
+                        "Inca state capacity for direct resource administration",
+                        "Quipu accounting as non-monetary ledger",
+                        "Sacred status of gold/silver preventing monetary use",
+                        "Ayllu reciprocal obligation networks covering local exchange",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1435–1644 CE",
+                    region: "Ming Dynasty China",
+                    type: "reform",
+                    typeName: "Reform / Collapse",
+                    title: "Ming Paper Failure → Silver Revival (Global Monetary Integration)",
+                    from: "Da Ming Baochao fiat paper (failed hyperinflation, abandoned 1455 CE)",
+                    to: "Silver imported from Japan then Spanish Americas — de facto global money",
+                    summary:
+                        "The Ming Dynasty attempted to revive Song-era paper money with the Da Ming Baochao (1375 CE), prohibiting private metals and making paper the sole legal tender. Without credible backing, overprinting caused rapid inflation; by 1455 CE the notes were abandoned and silver returned — initially from Japanese Iwami Ginzan mines, then in torrents from Spanish Potosí via Manila after 1565. The Single Whip Tax Reform (1581) formalized silver as the official tax currency. China became the terminal sink of the first global silver circuit, absorbing perhaps half of all New World silver production between 1550–1800.",
+                    mechanism:
+                        "Ming Chinese demand for silver was structural: a population of ~100–200 million needed a portable, divisible, non-perishable medium of exchange that the government couldn't debase. Silver was globally recognized, imported from sources the Ming state couldn't control, and already accepted across Asian trade networks. The Manila Galleon trade (1565–1815) made the Pacific the first global monetary circuit.",
+                    austrian:
+                        "The Ming silver revival is one of history's clearest market demonstrations of Menger's monetary origin theory applied to monetary collapse. When the Da Ming Baochao's purchasing power evaporated, millions of Chinese merchants and peasants independently and simultaneously reverted to the most saleable alternative available. Silver won because its saleability was globally recognized — the probability matrix of exchange across the entire Eurasian world already had silver at high density. The People's market 'vote for silver' against the Emperor's paper is a powerful demonstration that state coercion over monetary choice is ultimately limited by market saleability dynamics.",
+                    drivers: [
+                        "Da Ming Baochao hyperinflation and market rejection",
+                        "Japanese Iwami Ginzan silver mines (opened 1526)",
+                        "Spanish Potosí silver via Manila Galleon (1565–1815)",
+                        "Ming Single Whip Tax Reform (1581) formalizing silver taxation",
+                    ],
+                },
+                {
+                    era: "Commercial Revolution",
+                    eraPeriod: "~1200–1600 CE",
+                    period: "~1545–1800 CE",
+                    region: "Spanish Empire → Global",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Spanish Silver Pieces of Eight — The First Global Money",
+                    from: "Regional silver standards (European, Islamic, Indian, Chinese)",
+                    to: "Spanish real de a ocho (pieces of eight) as de facto global trade currency",
+                    summary:
+                        "The discovery of Potosí (1545, Bolivia) and Zacatecas (1546, Mexico) created the world's largest silver supply. Spanish pieces of eight (8 reales, ~27.5g pure silver) became universally accepted from Seville to Manila, Beijing to Bombay. Legal tender in the United States until 1857, they circulated in China as the preferred trade coin, throughout India, the Levant, and West Africa. Spanish mints at Potosí and Mexico City struck an estimated ~150,000 tonnes of silver between 1500–1800. The Manila Galleon trade connected the Pacific economies in silver.",
+                    mechanism:
+                        "The pieces of eight's global saleability rested on: consistent weight and fineness (verified at royal mints under strict quality control), geographic universality (Spanish colonialism distributed them across four continents), and demand complementarity (China needed silver after the Da Ming Baochao collapse; Europe needed silver for Asian trade; Spain needed it to pay for everything). The coin required no shared political or cultural framework — only shared recognition of silver's value.",
+                    austrian:
+                        "Spanish silver achieved the highest saleability across the most context-layers of any monetary good in history to that point: simultaneously the unit of account for the Spanish Empire (~6 million km²), the primary trade currency in China (silver-hungry Qing economy), the medium for Indian Ocean trade, and circulating in indigenous American economies post-conquest. Its probability density was nearly uniform across the global context-matrix of early-modern commerce — the first money deserving the adjective 'global.' The resulting global price convergence (silver prices rose in Europe, fell in Asia, gradually equalizing) was the first documented instance of monetary globalization.",
+                    drivers: [
+                        "Potosí and Zacatecas silver mines (largest in history)",
+                        "Manila Galleon trade creating Pacific monetary circuit",
+                        "Ming/Qing China's insatiable silver demand",
+                        "Consistent mint quality across Spanish colonial minting network",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 7 · EARLY MODERN BANKING
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Early Modern Banking",
+                    eraPeriod: "~1600–1870 CE",
+                    period: "~1600–1900 CE",
+                    region: "Micronesia (Yap Island)",
+                    type: "proto",
+                    typeName: "Proto-Money",
+                    title: "Yap Rai Stones — Distributed Ledger Money",
+                    from: "Island-scale barter",
+                    to: "Limestone rai stones as social-consensus money (ownership by oral record, not possession)",
+                    summary:
+                        "The Yapese quarried rai stones (aragonite limestone discs, up to 4 metres diameter) from Palau (~400 km away) and used them as money for large transactions: land purchases, political settlements, dowry. A stone too large to move could still change ownership — only the oral acknowledgment of transfer was required. One famous stone sank to the ocean floor during transport; the Yapese continued to use it as money because its ownership was socially acknowledged. This is arguably the earliest documented distributed-ledger monetary system: ownership tracked in communal memory rather than in the stone's location.",
+                    mechanism:
+                        "Rai money's saleability derived from collective social memory, not physical possession or intrinsic value. A stone's value correlated partly with the narrative of its acquisition: the difficulty of quarrying it, the dangers of transport, the lives lost — similar in structure to Bitcoin's 'proof of work' concept. Only Yapese community knowledge could validate a stone's ownership status. Outsiders (who lacked the communal ledger) could not use or steal rai.",
+                    austrian:
+                        "Rai stones are pure institutional money at maximum context-specificity. Their saleability existed entirely within the Yapese community — worthless to any outsider. The sunken stone demonstrates that physical possession is not necessary for monetary ownership when the relevant community shares a reliable record of ownership history. This is structurally identical to all fiat currency: the dollar is money because the community of dollar-users says it is, maintained by a (centralized) institutional ledger rather than Yap's distributed oral one. The difference is scale and institutional structure, not monetary logic.",
+                    drivers: [
+                        "Island community consensus as enforcement mechanism",
+                        "Scarce aragonite limestone in Palau relative to Yap",
+                        "Oral communal memory functioning as ownership ledger",
+                        "Proof-of-work analog: acquisition difficulty as value signal",
+                    ],
+                },
+                {
+                    era: "Early Modern Banking",
+                    eraPeriod: "~1600–1870 CE",
+                    period: "~1600–1700s CE",
+                    region: "Colonial North America",
+                    type: "commodity",
+                    typeName: "Commodity",
+                    title: "Wampum, Colonial Bills & Monetary Improvisation",
+                    from: "Indigenous reciprocity / fur trade barter",
+                    to: "Wampum shells → colonial bills of credit → eventual integration into European system",
+                    summary:
+                        "Wampum (shell beads: white whelk and purple quahog from coastal New England) served multiple monetary roles. Indigenous nations used it for diplomacy, treaty, and ceremonial exchange — saleability was political and cultural. European colonists adopted wampum from necessity (European coin was extremely scarce) and Massachusetts declared it legal tender in 1637. Individual colonies issued paper 'bills of credit' for war finance: Massachusetts's 1690 issue — to pay soldiers returning from a failed raid on Quebec — was the first government paper money in the Western Hemisphere. Virginia used tobacco at fixed rates in lieu of coin.",
+                    mechanism:
+                        "Wampum's adoption illustrates how colonial networks could temporarily elevate an indigenous monetary good's saleability into European contexts. Its eventual displacement came as European coin supplies increased and colonial bills developed their own network effects through tax receivability. Tobacco in Virginia followed the same arc: mandatory acceptance in tax payment gave it saleability, then it was displaced as coin arrived and tobacco prices became volatile.",
+                    austrian:
+                        "Colonial North America was a laboratory for monetary improvisation under institutional scarcity. When established monetary goods (European coin) are absent, the market selects whatever available commodity achieves the widest saleability within the relevant community. Wampum won initially because it was the most accepted good in the indigenous-European trade network, which was the dominant network. As European settler networks grew and European monetary institutions established themselves, wampum's context-layer shrunk and its saleability declined — not because wampum changed, but because the relevant probability distribution shifted to a network in which it had no standing.",
+                    drivers: [
+                        "Severe European coin scarcity in colonies",
+                        "Indigenous-European trade necessity creating wampum bridge",
+                        "Massachusetts 1637 legal tender declaration (tax-receivability)",
+                        "1690 Massachusetts paper bill — first Western Hemisphere government paper money",
+                    ],
+                },
+                {
+                    era: "Early Modern Banking",
+                    eraPeriod: "~1600–1870 CE",
+                    period: "~1640–1694 CE",
+                    region: "London, England",
+                    type: "paper",
+                    typeName: "Paper Money",
+                    title: "London Goldsmith Notes — Fractional Reserve Banking Emerges",
+                    from: "Physical gold and silver coin",
+                    to: "Goldsmith deposit receipts → bearer notes circulating as money",
+                    summary:
+                        "London goldsmiths — possessing secure vaults and assaying expertise — began accepting merchant deposits during English Civil War disruptions (~1640s). Their receipts, initially named to depositor, evolved to bearer form and circulated in London commerce without redeeming the underlying gold. Goldsmiths like Edward Backwell by 1650 were lending out portions of deposited metal (retaining 20–50% as reserves) while charging 6% interest, creating the first English fractional-reserve banking. The 1672 Stop of the Exchequer (Charles II refusing to repay £1.3 million owed to goldsmiths) triggered bank runs and eventually drove establishment of the Bank of England.",
+                    mechanism:
+                        "Goldsmith notes succeeded in the London context because: (1) London commerce was dense enough that notes rarely needed redemption between counterparties who trusted the goldsmith; (2) notes were more convenient than heavy coin; (3) goldsmiths maintained sufficient reputation to make bearer claims credible. The fractional reserve dynamic created money multiplication — a note in circulation plus the loaned metal both served as monetary instruments simultaneously.",
+                    austrian:
+                        "Goldsmith notes represent the emergence of a new context-layer: 'trusted London merchant commerce.' Within this layer, the note achieved higher saleability than coin (lighter, no assaying, easily divisible on paper). Outside London's merchant network, notes had little saleability. The fractional reserve dynamic introduced systemic risk: if all note-holders simultaneously demanded redemption, the note's probability density would instantly collapse to zero — a bank run is a monetary phase transition, a sudden discontinuous collapse from the 'high-trust equilibrium' to the 'low-trust equilibrium' of the probability surface.",
+                    drivers: [
+                        "Civil War disruption making coin transport dangerous",
+                        "London merchant density enabling note circulation without redemption",
+                        "Goldsmith vault security and assaying expertise",
+                        "Note convenience over heavy specie in dense urban commerce",
+                    ],
+                },
+                {
+                    era: "Early Modern Banking",
+                    eraPeriod: "~1600–1870 CE",
+                    period: "~1694–1821 CE",
+                    region: "England → British Empire",
+                    type: "paper",
+                    typeName: "Paper Money",
+                    title: "Bank of England Notes — State-Backed Paper Money",
+                    from: "Private goldsmith notes and various commercial paper",
+                    to: "Bank of England notes (gold-backed, government-endorsed) as London monetary standard",
+                    summary:
+                        "The Bank of England, chartered July 27, 1694, to lend £1.2 million to William III for the Nine Years' War, issued 'running cash notes' backed by gold and government debt simultaneously. By 1700, BOE notes dominated London commerce. During the Napoleonic Wars (1797–1821), gold convertibility was suspended — a real-world test of whether paper money could function without commodity backing. It could, but with elevated inflation. The Resumption Act (1819) restored convertibility at pre-war gold parity by 1821, deflating the economy but cementing the BOE note as the model for modern central bank money.",
+                    mechanism:
+                        "The BOE's advantage over private goldsmith notes was its government connection: taxes were payable in BOE notes, giving them mandatory saleability across the entire UK economy. Parliament's 1704 act making notes legally negotiable instruments extended this to commercial contracts. The gold reserve requirement was a credibility constraint — limiting the BOE's capacity to expand supply and thus preventing excessive dilution of saleability. The Napoleonic paper suspension showed paper money could function institutionally but required discipline to prevent inflation.",
+                    austrian:
+                        "The Bank of England represents the culmination of the private-to-sovereign money transition: monetary saleability became primarily dependent on state authority rather than commodity backing. The gold reserve requirement was a credibility anchor borrowed from gold's intrinsic monetary density. When gold convertibility was suspended in 1797, the pure test of institutional credibility began. The note survived, but with higher inflation — demonstrating that sovereignty can substitute partially but not completely for commodity backing. The Bullionist Controversy (1810–1821) was the first systematic public debate about the limits of fiat money.",
+                    drivers: [
+                        "William III's war finance requiring large-scale credit",
+                        "Parliament's tax-acceptance mandate creating universal saleability",
+                        "Network monopoly over London commercial clearing",
+                        "Napoleonic Wars testing paper money's limits (1797–1821)",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 8 · CLASSICAL GOLD STANDARD
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Classical Gold Standard",
+                    eraPeriod: "~1821–1914 CE",
+                    period: "~1821–1914 CE",
+                    region: "Britain (1821) → Global (1870s–1914)",
+                    type: "reform",
+                    typeName: "Reform",
+                    title: "Classical Gold Standard — Global Price Stability",
+                    from: "Bimetallic gold/silver (various national standards); competing monetary blocs",
+                    to: "Gold-backed paper money convertible at fixed rate across major economies",
+                    summary:
+                        "Britain's Resumption Act (1819) anchored the pound to gold at £3 17s 10.5d per troy ounce from 1821. Germany joined in 1871 with Franco-Prussian war indemnity gold; Scandinavia in 1873; France (via Latin Monetary Union silver suspension) in 1876; the US (de facto 1879, legally 1900). By 1900, the classical gold standard encompassed all major trading economies. Global wholesale prices fluctuated less than 1% annually from 1870–1913. Economists estimate gold-standard countries experienced 20–30% higher bilateral trade volumes. The Bank of England's discount rate managed gold flows automatically.",
+                    mechanism:
+                        "The gold standard's self-correcting mechanism: trade deficit → gold outflow → reduced money supply → falling domestic prices → improved export competitiveness → gold inflows restore equilibrium. No explicit coordination was required — only individual commitment to convertibility. The Bank of England's discount rate managed gold flows by attracting or repelling international capital. The system required no supranational institution, only shared adherence to the convertibility rule.",
+                    austrian:
+                        "The gold standard is the most sophisticated historical solution to the monetary coordination problem: a universally saleable anchor (gold) whose supply is not controlled by any single political authority, combined with paper money that borrows gold's probability density through convertibility. The paper note's saleability across all context-layers derived from its redeemability for the commodity with the highest intrinsic saleability. The system's 'automatic' equilibration reflects Hayek's insight: decentralized adherence to a simple rule (convertibility) was sufficient for global monetary coordination without any central planner.",
+                    drivers: [
+                        "British trade hegemony requiring stable exchange rates",
+                        "Silver demonetization (US Comstock Lode flood, 1873)",
+                        "Franco-Prussian gold reparations enabling German gold standard",
+                        "Network effects: gold-standard countries traded more with each other",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 9 · 20TH CENTURY TRANSITIONS
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "20th Century Transitions",
+                    eraPeriod: "~1914–1971 CE",
+                    period: "1914–1939 CE",
+                    region: "Global",
+                    type: "reform",
+                    typeName: "Collapse / Reform",
+                    title: "WWI Suspension, German Hyperinflation & Interwar Chaos",
+                    from: "Classical gold standard (1870–1914)",
+                    to: "Managed currencies, exchange controls, competitive devaluations, competing blocs",
+                    summary:
+                        "All major belligerents suspended gold convertibility in August 1914 to fund WWI via money printing. Post-war attempts to restore gold at pre-war parities (UK 1925) caused severe deflation — Keynes famously criticized Churchill's 1925 return to gold as deflationary folly. Germany's 1923 hyperinflation (peak monthly rate: 29,500% in October 1923) destroyed private savings. The 1931 sterling crisis, Austrian Creditanstalt failure, and cascading bank collapses caused universal gold abandonment. By 1936, no major economy remained on gold. The competitive devaluations of the 1930s ('beggar-thy-neighbor') showed that discretionary monetary policy in a post-gold world was zero-sum internationally.",
+                    mechanism:
+                        "Each nation tried different monetary anchors between 1919–1939 without coordination: restored gold (UK 1925–1931), silver (China until 1935), currency unions (gold bloc 1933–1936), capital controls, and exchange rate manipulation. The absence of a credible common anchor meant that each country's stabilization attempt created instability elsewhere. The period is a disordered search for a new monetary equilibrium after the gold standard's credibility was destroyed by wartime suspension.",
+                    austrian:
+                        "The interwar period demonstrates that monetary credibility, once destroyed, is not easily rebuilt by announcement. The gold standard's saleability rested on the credible, unconditional commitment to convertibility — when that commitment was broken in 1914, the probability density of gold-backed currencies fell permanently in agents' assessments. Restoration attempts (UK 1925) failed because agents no longer fully believed the commitment — they were right, as the 1931 exit confirmed. Germany's 1923 hyperinflation is the clearest modern demonstration of Mises's crack-up boom: once confidence that the mark's purchasing power would hold was lost, velocity of exchange accelerated catastrophically as agents fled paper for real goods.",
+                    drivers: [
+                        "WWI fiscal demands exceeding peacetime tax capacity",
+                        "Gold standard deflation at pre-war parities (UK 1925)",
+                        "German reparations creating unsustainable fiscal dynamics",
+                        "1931 banking panics: Creditanstalt (Austria) → Germany → UK → contagion",
+                    ],
+                },
+                {
+                    era: "20th Century Transitions",
+                    eraPeriod: "~1914–1971 CE",
+                    period: "1944–1971 CE",
+                    region: "Global",
+                    type: "reform",
+                    typeName: "Reform",
+                    title: "Bretton Woods — Dollar as the World's Gold Proxy",
+                    from: "Fragmented interwar monetary blocs, exchange controls",
+                    to: "USD pegged to gold at $35/troy oz; 44 currencies pegged to USD; IMF created",
+                    summary:
+                        "The July 1944 Bretton Woods Conference established the post-war monetary order: the US dollar, backed by gold at $35/troy ounce, became the world's reserve currency; 44 nations pegged their currencies to the dollar. The IMF and World Bank were created to manage imbalances. Between 1944 and 1971, global trade expanded under stable exchange rates and the US held over 70% of world monetary gold. By the late 1960s, Vietnam War and Great Society spending created dollar deficits; France (under de Gaulle) demanded gold for dollars, depleting US reserves. Nixon's choice: devalue, deflate, or default on gold. He chose default.",
+                    mechanism:
+                        "Bretton Woods worked while US fiscal credibility was unquestioned and the US held dominant gold reserves. The structural contradiction — the Triffin Dilemma — was identified in 1960: running deficits to supply global dollar liquidity would eventually destroy the gold peg's credibility, but refusing to run deficits would starve the world of reserve currency. The system was structurally unstable; the only question was timing.",
+                    austrian:
+                        "Bretton Woods was a monetary topology built on borrowed saleability: the dollar's probability density was borrowed from gold's intrinsic monetary density through the convertibility commitment. The US, as reserve currency issuer, faced an inherent contradiction: the larger the dollar's role in global exchange, the more dollars had to be issued, and the more precarious the gold commitment became. This is a structural feature of any reserve-currency arrangement — the issuer's monetary discipline is constrained by its global monetary role. The system lasted ~27 years before the contradiction became unsustainable.",
+                    drivers: [
+                        "US post-war gold dominance (>70% of world monetary gold in 1944)",
+                        "Cold War political alliances requiring US monetary leadership",
+                        "Vietnam War and Great Society fiscal deficits creating dollar overhang",
+                        "Triffin Dilemma: reserve currency creation vs. gold commitment — inherently contradictory",
+                    ],
+                },
+                {
+                    era: "20th Century Transitions",
+                    eraPeriod: "~1914–1971 CE",
+                    period: "August 15, 1971 – Present",
+                    region: "Global",
+                    type: "fiat",
+                    typeName: "Fiat Money",
+                    title: "Nixon Shock — Global Fiat Era Begins",
+                    from: "USD convertible to gold at $35/troy oz (last surviving gold link)",
+                    to: "Pure fiat USD and all other major currencies — no commodity anchor",
+                    summary:
+                        "On August 15, 1971, President Nixon announced on prime-time television the suspension of dollar-gold convertibility — the final link between any major currency and any commodity. Within two years, Bretton Woods's fixed exchange rates had dissolved into a floating rate system. All major world currencies are now fiat money: their saleability derives entirely from legal tender laws, network effects, institutional credibility, and geopolitical power — not from any commodity backing. The petrodollar arrangement (1973–74, oil priced in dollars, Saudi Arabia and OPEC recycling dollar revenues) extended dollar saleability after gold convertibility ended.",
+                    mechanism:
+                        "The Nixon Shock was initially intended as temporary — a 90-day wage-price freeze and import surcharge alongside convertibility suspension, to be followed by a new fixed-rate system. Instead, the dollar's network inertia (existing contracts, trade finance, reserves all denominated in dollars), the petrodollar arrangement, and US military/economic dominance proved sufficient to sustain dollar saleability without gold backing. Floating exchange rates replaced fixed parities; inflation followed in the 1970s before Volcker's shock (1979–1982) restored price discipline.",
+                    austrian:
+                        "The fiat era is the ultimate test of institutional saleability: can money maintain probability density across all context-layers without any commodity anchor? The evidence is mixed. The dollar has maintained high saleability through: (1) network inertia — existing contracts, debts, and reserves denominated in dollars; (2) petrodollar arrangement — oil priced in dollars forces all oil-importing nations to hold dollars; (3) US Treasury as the world's deepest safe asset; (4) US military power. But Austrian economists note the fundamental fragility: fiat money's saleability is purely a function of present credibility, which rests on institutions whose strength can change. The fiat era has not ended monetary instability — it has relocated it from gold supply constraints to institutional credibility management.",
+                    drivers: [
+                        "Dollar gold overhang — more dollars than gold at $35/oz",
+                        "Nixon administration's desire to stimulate economy before 1972 election",
+                        "Petrodollar arrangement (1973–74) replacing gold as dollar anchor",
+                        "USD network inertia: global contracts, trade, reserves denominated in dollars",
+                    ],
+                },
+
+                /* ═══════════════════════════════════════════════════════════════
+     ERA 10 · POST-FIAT WORLD
+  ═══════════════════════════════════════════════════════════════ */
+                {
+                    era: "Post-Fiat World",
+                    eraPeriod: "~1971 CE – Present",
+                    period: "~1960–Present",
+                    region: "Global offshore financial system",
+                    type: "credit",
+                    typeName: "Credit Money",
+                    title: "Eurodollar System — Decentralized Dollar Credit Creation",
+                    from: "Gold-anchored dollar reserve system (Fed controls the base)",
+                    to: "Offshore dollar credit created by non-US banks, beyond Fed jurisdiction",
+                    summary:
+                        "The 'eurodollar' market — US dollars deposited in banks outside US regulatory jurisdiction — grew explosively from the 1950s (partly driven by Soviet desire to hold dollars outside US reach), eventually exceeding the domestic US money supply. Eurodollars are created when offshore banks extend dollar-denominated loans without Federal Reserve oversight or reserve requirements. By the 1990s, the global financial system ran primarily on eurodollar credit. The 2008 financial crisis was substantially a eurodollar liquidity crisis: when offshore dollar credit contracted, the global economy experienced sharp monetary deflation, requiring Fed swap lines to 14 non-US central banks to prevent complete collapse.",
+                    mechanism:
+                        "Any offshore bank can create dollar-denominated liabilities (eurodollars) as long as counterparties accept them as settlement for dollar-denominated claims. This creates a shadow monetary system parallel to the Fed's official system. The Fed became de facto global central bank — managing not only domestic monetary conditions but global dollar liquidity through swap lines and forward guidance affecting offshore dollar markets.",
+                    austrian:
+                        "The eurodollar system demonstrates that in a fiat world, the probability density of a currency is not solely determined by its sovereign issuer. The dollar's saleability had extended so far into offshore credit creation that monetary topology became effectively decentralized. The Fed's M1 money supply measure became increasingly irrelevant to global monetary conditions — the true monetary base was the global dollar credit edifice. This is money whose creation is distributed across thousands of institutions worldwide, sustained by network effects and the dollar's dominant position in global trade and debt contracts — but with no commodity anchor and ambiguous lender-of-last-resort authority.",
+                    drivers: [
+                        "Post-Bretton Woods dollar dominance in trade invoicing",
+                        "Offshore banking deregulation (Cold War-era regulatory arbitrage)",
+                        "Petrodollar recycling: oil revenues → offshore dollar deposits → global lending",
+                        "Global trade finance: >80% of international trade invoiced in dollars",
+                    ],
+                },
+                {
+                    era: "Post-Fiat World",
+                    eraPeriod: "~1971 CE – Present",
+                    period: "1970s–Present",
+                    region: "Emerging market economies (Venezuela, Turkey, Argentina, Zimbabwe…)",
+                    type: "reform",
+                    typeName: "Collapse / Reform",
+                    title: "Emerging Market Hyperinflations — Repeated Fiat Failures",
+                    from: "National fiat currency",
+                    to: "Foreign currency (dollarization), gold, barter, cryptocurrency adoption",
+                    summary:
+                        "The fiat era has produced repeated monetary collapses in countries with weaker institutions: Germany-style hyperinflation in Zimbabwe (2007–2009, peak monthly rate: 79.6 billion percent), Venezuela (2018, >1,000,000% annual inflation), Argentina (chronic inflation since 1970s, multiple currency reforms), Turkey (2021–2023, 85%+ annual inflation). In each case, citizens responded by seeking alternative monetary goods: US dollars (most common), gold, inflation-indexed instruments, and increasingly cryptocurrency. Zimbabwe officially dollarized in 2009; Ecuador dollarized in 2000.",
+                    mechanism:
+                        "Emerging market hyperinflations follow the same structural path as historical episodes: fiscal deficits beyond bond-market capacity → central bank money-printing → inflation → capital flight → currency collapse → dollarization or currency reform. The sequence is accelerated in modern economies by digital payment systems that enable faster capital flight and price adjustment.",
+                    austrian:
+                        "Each hyperinflation is a Misesian crack-up boom in a modern context: when agents lose confidence that a fiat currency's purchasing power will hold, they progressively shift to alternatives with higher probability density across the relevant context-layers. The dollar achieves high density because its institutional backing (US Treasury, Fed, petrodollar arrangement) is more credible than the collapsing national currency. Gold achieves density because its saleability is independent of any institution. Cryptocurrency is achieving increasing density in specific contexts (cross-border remittances, inflation hedging) as a new entrant in the monetary saleability competition.",
+                    drivers: [
+                        "Fiscal deficits financed by money creation (chronic)",
+                        "Weak institutional constraints on central bank independence",
+                        "Capital flight accelerating currency collapse",
+                        "Market monetary selection: dollar, gold, crypto as alternatives",
+                    ],
+                },
+                {
+                    era: "Post-Fiat World",
+                    eraPeriod: "~1971 CE – Present",
+                    period: "2009 – Present",
+                    region: "Global / Digital",
+                    type: "digital",
+                    typeName: "Digital / Crypto",
+                    title: "Bitcoin & Cryptocurrency — Algorithmic Commodity Money",
+                    from: "Fiat currencies (with sovereign counterparty risk)",
+                    to: "Emerging parallel digital monetary network (algorithmically scarce, institutionlessly credible)",
+                    summary:
+                        "Bitcoin (2009, creator: Satoshi Nakamoto) was designed as a direct response to the 2008 financial crisis: a fixed-supply (21 million coin cap) digital currency secured by cryptographic proof of work, with no central issuer and no counterparty risk. It achieved non-trivial monetary saleability in specific context-layers: inflation hedge for citizens of unstable currencies (Venezuela, Nigeria, Argentina), cross-border remittances (no correspondent banking required), and as a speculative asset. Over 20,000 competing cryptocurrencies exist, each attempting to solve specific monetary or financial problems.",
+                    mechanism:
+                        "Bitcoin's 'proof of work' creates scarcity analogous to gold mining: computational effort (energy expenditure) validates transactions and creates new coins, making supply predictable regardless of price. The distributed ledger (blockchain) creates Yap-stone-style distributed ownership records without any central authority. Unlike gold, Bitcoin's supply schedule is precisely known in advance — its monetary policy is transparent and unalterable. Current limitations: price volatility limits unit-of-account function; energy consumption is contested; regulatory uncertainty; limited merchant acceptance in developed economies.",
+                    austrian:
+                        "Bitcoin is the most explicitly Mengerian monetary experiment in history: it attempts to create a commodity-money through artificial scarcity (algorithmic gold), hoping that iterative individual selection of the most saleable digital good will converge on a single monetary standard. Its current probability density is highest in: (1) jurisdictions with hyperinflating fiat currencies; (2) cross-border value transfer without financial intermediaries; (3) speculation on future monetary adoption. The Austrian question is whether Bitcoin's volatility prevents it from reaching the tipping point of monetary convergence — where enough agents hold it expecting others to hold it that its saleability becomes self-fulfilling across mainstream context-layers. Hayek's 'Denationalisation of Money' (1976) anticipated the competitive production of private currencies; Bitcoin is the first serious implementation.",
+                    drivers: [
+                        "2008 financial crisis: distrust of banking institutions",
+                        "Algorithmic scarcity: 21 million coin cap, known supply schedule",
+                        "Distributed trust: no single point of failure or coercion",
+                        "Hyperinflation in emerging markets driving adoption as alternative store of value",
+                    ],
+                },
+            ];
+
+            /* ── BUILD TIMELINE ─────────────────────────────────────────────── */
+            function buildTimeline() {
+                const container = document.getElementById("timeline");
+                const eraOrder = [];
+                const eraMap = new Map();
+
+                T.forEach((t) => {
+                    if (!eraMap.has(t.era)) {
+                        eraMap.set(t.era, {
+                            name: t.era,
+                            period: t.eraPeriod,
+                            items: [],
+                        });
+                        eraOrder.push(t.era);
+                    }
+                    eraMap.get(t.era).items.push(t);
+                });
+
+                eraOrder.forEach((eraName) => {
+                    const era = eraMap.get(eraName);
+                    const eraDiv = document.createElement("div");
+                    eraDiv.className = "era-group";
+
+                    eraDiv.innerHTML = `
+      <div class="era-label">
+        <span class="era-label-text">${era.name}</span>
+        <div class="era-label-line"></div>
+        <span class="era-label-period">${era.period}</span>
+      </div>`;
+
+                    era.items.forEach((t) => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+                        card.dataset.type = t.type;
+
+                        card.innerHTML = `
+        <div class="card-stripe s-${t.type}"></div>
+        <div class="card-header">
+          <div class="card-meta">
+            <div class="card-period">${t.period}</div>
+            <div class="card-region">${t.region}</div>
+          </div>
+          <div>
+            <div class="card-title">${t.title}</div>
+            <div class="card-transition">
+              <span class="card-from">${t.from}</span>
+              <span class="card-arrow">→</span>
+              <span class="card-to">${t.to}</span>
+            </div>
+          </div>
+          <div class="card-controls">
+            <span class="card-type-badge b-${t.type}">${t.typeName}</span>
+            <span class="card-toggle">+</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <p class="card-summary">${t.summary}</p>
+            <p class="card-mechanism">${t.mechanism}</p>
+            <div class="austrian-box">
+              <div class="austrian-label">⬡ Austrian / Contextual Saleability Lens</div>
+              <p>${t.austrian}</p>
+            </div>
+            <div class="card-drivers">
+              ${t.drivers.map((d) => `<span class="driver-tag">${d}</span>`).join("")}
+            </div>
+          </div>
+        </div>`;
+
+                        card.querySelector(".card-header").addEventListener(
+                            "click",
+                            () => {
+                                card.classList.toggle("expanded");
+                            },
+                        );
+
+                        eraDiv.appendChild(card);
+                    });
+
+                    container.appendChild(eraDiv);
+                });
+            }
+
+            /* ── FILTERS ────────────────────────────────────────────────────── */
+            function setupFilters() {
+                document.querySelectorAll(".filter-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        document
+                            .querySelectorAll(".filter-btn")
+                            .forEach((b) => b.classList.remove("active"));
+                        btn.classList.add("active");
+
+                        const filter = btn.dataset.filter;
+                        document.querySelectorAll(".card").forEach((card) => {
+                            card.dataset.hidden =
+                                filter !== "all" && card.dataset.type !== filter
+                                    ? "true"
+                                    : "false";
+                        });
+
+                        document
+                            .querySelectorAll(".era-group")
+                            .forEach((group) => {
+                                const anyVisible = [
+                                    ...group.querySelectorAll(".card"),
+                                ].some((c) => c.dataset.hidden !== "true");
+                                group.dataset.hidden = anyVisible
+                                    ? "false"
+                                    : "true";
+                            });
+                    });
+                });
+            }
+
+            buildTimeline();
+            setupFilters();
+        </script>
+    </body>
+</html>
